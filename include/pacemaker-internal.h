@@ -22,5 +22,6 @@
 #  include <pcmki/pcmki_simulate.h>
 #  include <pcmki/pcmki_status.h>
 #  include <pcmki/pcmki_transition.h>
+#  include <pcmki/pcmki_verify.h>
 
 #endif
