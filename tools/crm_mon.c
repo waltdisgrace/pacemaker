@@ -2022,6 +2022,8 @@ crm_diff_update(const char *event, xmlNode * msg)
     int rc = -1;
     static bool stale = FALSE;
     gboolean cib_updated = FALSE;
+    pcmk_scheduler_t *scheduler = NULL;
+
     xmlNode *diff = get_message_xml(msg, F_CIB_UPDATE_RESULT);
 
     out->progress(out, false);
@@ -2070,6 +2072,13 @@ crm_diff_update(const char *event, xmlNode * msg)
         }
         stale = TRUE;
         return;
+    } else {
+        scheduler = pe_new_working_set();
+        scheduler->priv = out;
+
+        pcmk__verify(scheduler, out, current_cib);
+
+        pe_free_working_set(scheduler);
     }
 
     stale = FALSE;
